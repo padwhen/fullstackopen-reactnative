@@ -51,6 +51,16 @@ const AppBar = () => {
         <Link to='/signIn'>
           <Text style={styles.text}>Sign In</Text>
         </Link>
+        {user && (
+          <Link to='/createReview'>
+            <Text style={styles.text}>Create a review</Text>
+          </Link>
+        )}
+        {user && (
+          <Link to='/userReviews'>
+            <Text style={styles.text}>My reviews</Text>
+          </Link>
+        )}
         {!user ? (
           <Link to='/signIn'>
             <Text style={styles.text}>Sign in</Text>
@@ -59,6 +69,11 @@ const AppBar = () => {
           <Pressable onPress={signOut}>
             <Text style={styles.text}>Sign out</Text>
           </Pressable>
+        )}
+        {!user && (
+          <Link to='/signUp'>
+            <Text style={styles.text}>Sign up</Text>
+          </Link>
         )}
       </ScrollView>
     </View>

@@ -7,8 +7,6 @@ import { useState } from 'react';
 import { useLazyQuery } from '@apollo/client';
 import { GET_REPOSITORY_BY_ID } from '../graphql/queries';
 import { useEffect } from 'react';
-import Button from './Button';
-import * as Linking from 'expo-linking';
 
 const styles = StyleSheet.create({
   container: {
@@ -70,9 +68,6 @@ export const RepositoryItemById = () => {
 };
 
 const RepositoryItem = ({ item }) => {
-  const handleOpenInGitHub = (url) => {
-    Linking.openURL(url);
-  };
   return (
     <View testID='repositoryItem' style={styles.container}>
       <View style={styles.bodyContainer}>
@@ -106,12 +101,6 @@ const RepositoryItem = ({ item }) => {
           <Text color='textSecondary'>Rating</Text>
         </View>
       </View>
-      {item.url && (
-        <Button
-          onPress={() => handleOpenInGitHub(item.url)}
-          label='Open in GutHub'
-        ></Button>
-      )}
     </View>
   );
 };

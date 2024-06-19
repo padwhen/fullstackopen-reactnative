@@ -10,10 +10,33 @@ const useRepositories = () => {
     fetchPolicy: 'cache-and-network',
   });
 
-  const fetchRepositories = async () => {
+  const fetchRepositories = async (orderValue, filterValue) => {
+    let orderBy = 'CREATED_AT';
+    let orderDirection = 'DESC';
+    switch (orderValue) {
+      case 'latestReview':
+        orderBy = 'CREATED_AT';
+        orderDirection = 'DESC';
+        break;
+      case 'highestReview':
+        orderBy = 'RATING_AVERAGE';
+        orderDirection = 'DESC';
+        break;
+      case 'lowestReview':
+        orderBy = 'RATING_AVERAGE';
+        orderDirection = 'ASC';
+        break;
+      default:
+        break;
+    }
     setLoading(true);
-
-    const response = await getRepositories();
+    const response = await getRepositories({
+      variables: {
+        orderBy,
+        orderDirection,
+        searchKeyword: filterValue,
+      },
+    });
 
     setLoading(false);
     setRepositories(response.data.repositories);

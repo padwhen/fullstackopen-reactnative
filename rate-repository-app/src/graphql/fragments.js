@@ -18,8 +18,8 @@ export const REPOSITORY_CONNECTION_FIELDS = gql`
   }
 `;
 
-export const REPOSITORY_FIELDS = gql`
-  fragment REPOSITORY_FIELDS on Repository {
+export const SINGLE_REPOSITORY_FIELDS = gql`
+  fragment SINGLE_REPOSITORY_FIELDS on Repository {
     description
     forksCount
     fullName
@@ -30,5 +30,31 @@ export const REPOSITORY_FIELDS = gql`
     reviewCount
     stargazersCount
     url
+    reviews {
+      ...REVIEW_FIELDS
+    }
+  }
+  ${REVIEW_FIELDS}
+`;
+
+export const REVIEW_FIELDS = gql`
+  fragment REVIEW_FIELDS on ReviewConnection {
+    edges {
+      cursor
+      node {
+        createdAt
+        id
+        rating
+        text
+        user {
+          id
+          username
+        }
+        repository {
+          fullName
+          id
+        }
+      }
+    }
   }
 `;
